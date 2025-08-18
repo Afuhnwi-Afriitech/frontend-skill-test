@@ -1,0 +1,391 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FrontEnd task</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <script>
+        window.chartData = <%- JSON.stringify(chartData) %>;
+      
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+</head>
+
+
+<body>
+
+    <div class="navbar-container">
+        <div class="logo"></div>
+        <div class="mid-nav">
+            <div class="sub-mid-nav">
+                <img src="./images/home_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                <h5>Overview</h5>
+            </div>
+            <div class="sub-mid-nav mid-nav-selected">
+                <img src="/images/group_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                <h5>Patients</h5>
+            </div>
+            <div class="sub-mid-nav">
+                <img src="/images/calendar_today_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                <h5>Schedule</h5>
+            </div>
+            <div class="sub-mid-nav">
+                <img src="/images/chat_bubble_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                <h5>Message</h5>
+            </div>
+            <div class="sub-mid-nav">
+                <img src="/images/credit_card_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                <h5>Transactions</h5>
+            </div>
+        </div>
+        <div class="right-nav">
+
+            <div class="sub-right-nav-one">
+                <div class="sub-right-nav-img">
+                    <img class="lung-images"
+                        src="/images/senior-woman-doctor-and-portrait-smile-for-health-2023-11-27-05-18-16-utc.png"
+                        alt="">
+                </div>
+                <div class="sub-right-nav-name">
+                    <h4>Dr Jose Simmons</h4>
+                    <p>General practitioner</p>
+                </div>
+            </div>
+
+            <div class="sub-right-nav-two">
+                <img src="./images/settings_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                <img src="./images/more_vert_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+            </div>
+
+        </div>
+    </div>
+
+    <!-- section 2 -->
+    <div class="section-two">
+        <!-- column 1 -->
+        <div class="section-two-one">
+            <!-- search icon -->
+            <div class="sub-section-two-one-one search-container">
+                <div class="sub-right-nav-one-section-two searching">
+                    <h1>Patients</h1>
+                    <div class="sub-right-nav-two search">
+                        <img src="./images/search_FILL0_wght300_GRAD0_opsz24.svg" alt="">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- various patients -->
+            <div class="parent-for-all-patients first-scroll-parent">
+                <div class="scroll-content first-scroll-content">
+                    <div class="sub-section-two-one-one">
+                        <% patients.forEach(function(patient) { %>
+                        <div class="sub-right-nav-one-section-two patients">
+                            <div class="sub-right-nav-img patient-image-container">
+                                <% if (patient.profile_picture) { %>
+                                <img class="patient-image" src="<%= patient.profile_picture %>"
+                                    alt="<%= patient.name %>">
+                                <% } %>
+                            </div>
+                            <div class="sub-right-nav-name">
+                                <h4><%= patient.name %></h4>
+                                <p><%= patient.gender %>, <%= patient.age %></p>
+                            </div>
+                            <div class="sub-right-nav-two">
+                                <img src="./images/more_horiz_FILL0_wght300_GRAD0_opsz24.svg" alt="More options">
+                            </div>
+                        </div>
+                        <% }); %>
+                    </div>
+                </div>
+                <div class="custom-scrollbar">
+                    <div class="thumb first-scroll-thumb"></div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- section 2 mid section -->
+        <div class="section-two-two">
+            <div class="section-two-two-container">
+                <h1>Diagnostic History</h1>
+                <div class="chart">
+                    <div id="chartContainer">
+                        <div class="graph">
+                            <div class="chart-heading">
+                                <h4>Blood Pressure</h4>
+                                <div class="months">
+                                    <p>Last 6 months</p>
+                                    <img src="/images/expand_more_FILL0_wght300_GRAD0_opsz24@2x.png" alt="">
+                                </div>
+                            </div>
+                            <canvas id="bpChart"></canvas>
+                        </div>
+
+                        <div class="stats">
+                            <div class="stat systolic">
+                                <div class="bullet one"><i class="fa-solid fa-circle"></i>
+                                    <p>Systolic</p>
+                                </div>
+                                <h2>160</h2>
+                                <div class="arrows"><img src="/images/ArrowUp.svg" alt="">
+                                    <p>Higher than Average</p>
+                                </div>
+                            </div>
+                            <hr>
+                            <div class="stat diastolic">
+                                <div class="bullet two"><i class="fa-solid fa-circle"></i>
+                                    <p>Diastolic</p>
+                                </div>
+                                <h2>78</h2>
+                                <div class="arrows"><img src="/images/ArrowDown.svg" alt="">
+                                    <p>Lower than Average</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <% patients.forEach(function(patient) { %>
+                <% if (patient.name === 'Jessica Taylor') { %>
+                <div class="container-of-three">
+                    <div class="lungs lungs-one">
+                        <div class="image-lungs">
+                            <img class="lung-images" src="/images/respiratory rate.svg" alt="">
+                        </div>
+                        <p>Respiratory Rate</p>
+                        <h1><%= patient.diagnosis_history[0].respiratory_rate.value %> bpm</h1>
+                        <p class="normal"><%= patient.diagnosis_history[0].respiratory_rate.levels %></p>
+                    </div>
+                    <div class="lungs lungs-two">
+                        <div class="image-lungs">
+                            <img class="lung-images" src="/images/temperature.svg" alt="">
+                        </div>
+                        <p>Temperature</p>
+                        <h1><%= patient.diagnosis_history[0].temperature.value %>&deg;F</h1>
+                        <p class="normal"><%= patient.diagnosis_history[0].temperature.levels %></p>
+                    </div>
+                    <div class="lungs lungs-three">
+                        <div class="image-lungs">
+                            <img class="lung-images" src="/images/HeartBPM.svg" alt="">
+                        </div>
+                        <p>Heart Rate</p>
+                        <h1><%= patient.diagnosis_history[0].heart_rate.value %> bpm</h1>
+                        <p class="normal"><img src="/images/ArrowDown.svg" alt="">  <%= patient.diagnosis_history[0].heart_rate.levels %></p>
+                    </div>
+                </div>
+                <% } %>
+                <% }); %>
+
+            </div>
+
+            <!-- diagnostic list -->
+
+            <div class="list-container">
+                <h1>Diagnostic List</h1>
+                <div class="list-heading">
+                    <h4>Problem/Diagnostic</h4>
+                    <h4>Description</h4>
+                    <h4>Status</h4>
+                </div>
+                <div class="parent-for-all-diagnostic-list second-scroll-parent">
+                    <div class="scroll-content-two second-scroll-content">
+                        <% patients.forEach(function(patient) { %>
+                        <div class="list-body">
+                            <p><%= patient.diagnostic_list[0].name %></p>
+                            <p><%= patient.diagnostic_list[0].description %></p>
+                            <p><%= patient.diagnostic_list[0].status %></p>
+                        </div>
+                        <% }); %>
+                    </div>
+                    <div class="custom-scrollbar-two">
+                        <div class="second-scroll-thumb"></div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        </div>
+
+        <!-- section 2 third section -->
+        <div class="section-two-three">
+            <div class="section-two-three-first-container">
+                <div class="profile-image-box">
+                    <% patients.forEach(function(patient) { %>
+                    <% if (patient.name === 'Jessica Taylor') { %>
+                    <div class="profile-image">
+                        <img class="section-3-profile-image" src="/images/Layer 2@2x.png" alt="">
+                    </div>
+                    <h2><%= patient.name %></h2>
+                    <% } %>
+                    <% }); %>
+
+                </div>
+                <div class="information-container">
+                    <% let count = 0; %>
+
+                    <% patients.forEach((patient) => { %>
+                    <% if (patient.name === 'Jessica Taylor') { %>
+                    <div class="detail-container">
+                        <div class="icons">
+                            <img class="lung-images" src="/images/BirthIcon.svg" alt="">
+                        </div>
+                        <div class="info">
+                            <p class="info-first-p">Date Of Birth</p>
+                            <p class="info-second-p dob"><%= patients[count].date_of_birth %></p>
+                        </div>
+                    </div>
+                    <div class="detail-container">
+                        <div class="icons">
+                            <img class="lung-images" src="/images/FemaleIcon.svg" alt="">
+                        </div>
+                        <div class="info">
+                            <p class="info-first-p">Gender</p>
+                            <p class="info-second-p"><%= patients[count].gender %></p>
+                        </div>
+                    </div>
+                    <div class="detail-container">
+                        <div class="icons">
+                            <img class="lung-images" src="/images/PhoneIcon.svg" alt="">
+                        </div>
+                        <div class="info">
+                            <p class="info-first-p">Contact Info</p>
+                            <p class="info-second-p"><%= patients[count].phone_number %></p>
+                        </div>
+                    </div>
+                    <div class="detail-container">
+                        <div class="icons">
+                            <img class="lung-images" src="/images/PhoneIcon.svg" alt="">
+                        </div>
+                        <div class="info">
+                            <p class="info-first-p">Emergency Contact</p>
+                            <p class="info-second-p"><%= patients[count].emergency_contact %></p>
+                        </div>
+                    </div>
+                    <div class="detail-container">
+                        <div class="icons">
+                            <img class="lung-images" src="/images/InsuranceIcon.svg" alt="">
+                        </div>
+                        <div class="info">
+                            <p class="info-first-p">Insurance Provider</p>
+                            <p class="info-second-p"><%= patients[count].insurance_type %></p>
+                        </div>
+                    </div>
+
+                    <% } %>
+                    <% count++; %>
+                    <% }); %>
+
+
+                </div>
+                <div class="blue-button">
+                    <div class="button">
+                        <p>Show all information</p>
+                    </div>
+                </div>
+            </div>
+            <div class="lab-results">
+                <h1>Lab Results</h1>
+                <div class="parent-lab-results three-scroll-parent">
+                    <div class="scroll-content-three">
+                        <% patients.forEach(function(patient) { %>
+                        <% if (patient.name === 'Jessica Taylor') { %>
+                        <% patient.lab_results.forEach(function(result) { %>
+                        <div class="results-row">
+                            <p><%= result %></p>
+                            <img src="./images/download_FILL0_wght300_GRAD0_opsz24 (1).svg" alt="">
+                        </div>
+                        <% }); %>
+                        <% } %>
+                        <% }); %>
+                    </div>
+                    <div class="custom-scrollbar-three">
+                        <div class="three-scroll-thumb"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/index.js"></script>
+    <script src="/js/scrollbar.js"></script>
+    <script>
+          function formatDate(dateStr) {
+    const date = new Date(dateStr);
+    const options = { year: "numeric", month: "long", day: "numeric" };
+    return date.toLocaleDateString("en-US", options);
+  }
+
+  document.querySelectorAll(".dob").forEach(el => {
+    el.textContent = formatDate(el.textContent);
+    console.log(formatDate(el.textContent));
+    
+  });
+    </script>
+    <!-- <script>
+        
+        const ctx = document.getElementById('bpChart').getContext('2d');
+
+        const bpChart = new Chart(ctx, {
+
+            type: 'line',
+            data: {
+                labels: ['Oct, 2023', 'Nov, 2023', 'Dec, 2023', 'Jan, 2024', 'Feb, 2024', 'Mar, 2024'],
+                datasets: [{
+                        label: 'Systolic',
+                        data: [122, 118, 160, 112, 148, 158],
+                        borderColor: '#d37ce7',
+                        backgroundColor: '#d37ce7',
+                        fill: false,
+                        tension: 0.4,
+                        pointRadius: 5
+                    },
+                    {
+                        label: 'Diastolic',
+                        data: [110, 65, 108, 92, 70, 76],
+                        borderColor: '#8571f2',
+                        backgroundColor: '#8571f2',
+                        fill: false,
+                        tension: 0.4,
+                        pointRadius: 5
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                layout: {
+                    padding: {
+                        bottom: 10,
+                        top: 20
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: false,
+                        min: 60,
+                        max: 180
+                    },
+                    x: {
+                        ticks: {
+                            maxRotation: 0,
+                            minRotation: 0
+                        }
+                    }
+                }
+            }
+        });
+    </script> -->
+</body>
+
+</html>
